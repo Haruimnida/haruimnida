@@ -18,9 +18,9 @@
             display: block;
         }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- credits to the writter @rivalfarizi follow him in https://codepen.io/rivalfarizi/pen/zxOWLry-->
      <canvas id="pinkboard" style="width: 100%; height: 100%;"></canvas>
      <script>
@@ -251,9 +251,9 @@
         onResize();
         render();
     }, 10);
-})(document.getElementById("pinkboard"));
-</script>
-</body>
+   })(document.getElementById("pinkboard"));
+  </script>
+ </body>
 
 </html>
 

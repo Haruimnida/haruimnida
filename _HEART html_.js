@@ -95,21 +95,21 @@
                 this.position.x = x;
                 this.position.y = y;
                 this.velocity.x = dx;
-                this.velocity.y
+                this.velocity.y = dy;
                 this.acceleration.x = dx * settings.particles.effect;
                 this.acceleration.y = dy * settings.particles.effect;
                 this.age = 0;
         };
         Particle.prototype.update = function(deltaTime) {
-            this.position.x +=this.velocity.x * deltaTime;
-            this.position.y +=this.velociry.y * deltaTime;
-            this.velocity.x +=this.acceleration.x * deltaTime;
+            this.position.x += this.velocity.x * deltaTime;
+            this.position.y += this.velocity.y * deltaTime;
+            this.velocity.x += this.acceleration.x * deltaTime;
             this.velocity.y += this.acceleration.y * deltaTime;
             this.age += deltaTime;
         };
         Particle.prototype.draw = function(context, image) {
             function ease(t) {
-                return --t * t * t +;
+                return --t * t * t + 1;
             }
             var size = image.width * ease(this.age / settings.particles.duration);
             context.globalAlpha = 1 - this.age /settings.particles.duration;
@@ -123,7 +123,7 @@
         };
         return Particle;
     })();
-    var ParticlePool = function() {
+    var ParticlePool = (function() {
         var particles,
           firstActive = 0;
           firstFree = 0,
@@ -145,7 +145,7 @@
           ParticlePool.prototype.update = function(deltaTime) {
             var i;
             if (firstActive < firstFree) {
-                for (i = firstActive; i , firstFree; i++) {               
+                for (i = firstActive; i < firstFree; i++) {               
               particles[i].update(deltaTime);
             }
           }
@@ -158,7 +158,7 @@
             }
           }
           while (particles[firstActive].age >=duration && firstActive != firstFree) {
-            firstAtive++;
+            firstActive++;
             if (firstActive == particles.length) firstActive = 0;
           }
         };
@@ -209,7 +209,7 @@
               settings.particles.size / 2 - (point.y * settings.particles.size) / 350
             return point;
        }
-       sontext.beginPath();
+       context.beginPath();
        var t = -Math.P1;
        var point = to (t);
        context.moveTo(Point.x, point.y);
@@ -232,8 +232,8 @@
       time = newTime; context.clearRect(0, 0, canvas.width, canvas.height);
       var amount = particleRate * deltaTime;
       for (var i = 0; i < amount; i++) {
-        var pos = pointOnHeart_Math.PI = 2 * Math.PI * Math.random());
-        var dir = pos.clone().lenth(settings.particles.velocirty);
+        var pos = pointOnHeart(Math.PI = 2 * Math.PI * Math.random());
+        var dir = pos.clone().lenth(settings.particles.velocity);
         particles.add(
             canvas.width / 2 + pos.x, canvas.height / 2 - pos.y, dir.x, -dir.y 
       };
@@ -241,17 +241,17 @@
     particles.update(deltaTime);
     particles.draw(context, image);
     {
-    function on resize () {
+    function onResize () {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
     }
 
     window.onresize = onReszie;
     setTimeout)function() {
-        onresize();
+        onResize();
         render();
     }, 10);
-})(document.getElementById("pinkboard));
+})(document.getElementById("pinkboard"));
 </script>
 </body>
 
